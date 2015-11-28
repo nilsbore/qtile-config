@@ -7,20 +7,6 @@ from libqtile import layout, bar, widget
 
 mod = "mod4"
 
-class Widget(object):
-
-    battery = dict(
-       energy_now_file='charge_now',
-       energy_full_file='charge_full',
-       power_now_file='current_now',
-    )
-    battery_text = battery.copy()
-    battery_text.update(
-        charge_char='',  # fa-arrow-up
-        discharge_char='',  # fa-arrow-down
-        format='{char} {hour:d}:{min:02d}',
-    )
-
 # Commands to spawn
 class Commands(object):
     browser = 'google-chrome'
@@ -123,14 +109,17 @@ screens = [
             widgets=[
                 widget.GroupBox(),
                 widget.Prompt(),
+                #widget.AGroupBox(),
                 widget.WindowName(),
                 #widget.TextBox("default config", name="default"),
                 widget.Systray(),
-                widget.BatteryIcon(**Widget.battery),
-                widget.Volume(theme_path='/usr/share/icons/Humanity/status/22/'),
+                widget.BatteryIcon(theme_path='/home/nbore/.config/qtile/icons', battery_name='BAT0'),
+                widget.Volume(theme_path='/home/nbore/.config/qtile/icons'),
+                #widget.NetGraph(interface='auto'),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
             ],
             size=30,
+            #icon_size=20,
             background=['222222', '111111'],
         ),
     ),
