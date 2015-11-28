@@ -73,6 +73,7 @@ keys = [
     Key([mod, "control"], "r", lazy.restart()),
     Key([mod, "control"], "q", lazy.shutdown()),
     Key([mod], "r", lazy.spawncmd()),
+    Key([mod, 'control'], 'l', lazy.spawn(Commands.lock_screen)),
 
      # Commands: Volume Controls
     Key([], 'XF86AudioRaiseVolume', lazy.spawn(Commands.volume_up)),
