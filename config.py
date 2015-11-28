@@ -60,7 +60,11 @@ keys = [
         [mod, "shift"], "Return",
         lazy.layout.toggle_split()
     ),
+
+    # Application launchers
     Key([mod], "Return", lazy.spawn(Commands.terminal)),
+    Key([mod], 'b', lazy.spawn(Commands.browser)),
+    Key([mod], 'f', lazy.spawn(Commands.file_manager)),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.nextlayout()),
@@ -76,7 +80,7 @@ keys = [
     Key([], 'XF86AudioMute', lazy.spawn(Commands.volume_toggle)),
 
     # TODO: What does the PrtSc button map to?
-    Key([mod], 'p', lazy.spawn(Commands.screenshot)),
+    Key([mod], 's', lazy.spawn(Commands.screenshot)),
 ]
 
 groups = [Group(i) for i in "123456"]
