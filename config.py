@@ -1,8 +1,25 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -
+
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget
 
 mod = "mod4"
+
+class Widget(object):
+
+    battery = dict(
+       energy_now_file='charge_now',
+       energy_full_file='charge_full',
+       power_now_file='current_now',
+    )
+    battery_text = battery.copy()
+    battery_text.update(
+        charge_char='',  # fa-arrow-up
+        discharge_char='',  # fa-arrow-down
+        format='{char} {hour:d}:{min:02d}',
+    )
 
 # Commands to spawn
 class Commands(object):
@@ -11,8 +28,9 @@ class Commands(object):
     lock_screen = 'gnome-screensaver-command -l'
     screenshot = 'gnome-screenshot'
     terminal = 'gnome-terminal'
-    volume_up = 'amixer -q -c 1 sset Master 5dB+'
-    volume_down = 'amixer -q -c 1 sset Master 5dB-'
+    volume_up = 'amixer -q set Master,0 5%+ unmute'
+    volume_down = 'amixer -q set Master,0 5%- unmute'
+    # This command might not be correct, but it works
     volume_toggle = 'amixer -q -D pulse sset Master 1+ toggle'
 
 keys = [
@@ -65,6 +83,14 @@ keys = [
     Key([mod, "control"], "r", lazy.restart()),
     Key([mod, "control"], "q", lazy.shutdown()),
     Key([mod], "r", lazy.spawncmd()),
+
+     # Commands: Volume Controls
+    Key([], 'XF86AudioRaiseVolume', lazy.spawn(Commands.volume_up)),
+    Key([], 'XF86AudioLowerVolume', lazy.spawn(Commands.volume_down)),
+    Key([], 'XF86AudioMute', lazy.spawn(Commands.volume_toggle)),
+
+    # TODO: What does the PrtSc button map to?
+    Key([mod], 'p', lazy.spawn(Commands.screenshot)),
 ]
 
 groups = [Group(i) for i in "123456"]
@@ -87,22 +113,25 @@ layouts = [
 
 widget_defaults = dict(
     font='Arial',
-    fontsize=16,
-    padding=3,
+    fontsize=15,
+    #padding=3,
 )
 
 screens = [
     Screen(
         top=bar.Bar(
-            [
+            widgets=[
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
                 #widget.TextBox("default config", name="default"),
                 widget.Systray(),
+                widget.BatteryIcon(**Widget.battery),
+                widget.Volume(theme_path='/usr/share/icons/Humanity/status/22/'),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
             ],
-            30,
+            size=30,
+            background=['222222', '111111'],
         ),
     ),
 ]
