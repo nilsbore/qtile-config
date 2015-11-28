@@ -4,8 +4,10 @@
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget
+from os.path import expanduser
 
 mod = "mod4"
+home = expanduser("~")
 
 # Commands to spawn
 class Commands(object):
@@ -125,8 +127,8 @@ screens = [
                 widget.WindowName(),
                 #widget.TextBox("default config", name="default"),
                 widget.Systray(),
-                widget.BatteryIcon(theme_path='/home/nbore/.config/qtile/icons', battery_name='BAT0'),
-                widget.Volume(theme_path='/home/nbore/.config/qtile/icons'),
+                widget.BatteryIcon(theme_path=home+'/.config/qtile/icons', battery_name='BAT0'),
+                widget.Volume(theme_path=home+'/.config/qtile/icons'),
                 #widget.NetGraph(interface='auto'),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
             ],
