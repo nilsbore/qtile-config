@@ -166,6 +166,6 @@ main = None
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
-floating_layout = layout.Floating()
+floating_layout = layout.Floating(**layout_defaults)
 auto_fullscreen = True
 wmname = "qtile"
