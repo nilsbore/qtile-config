@@ -32,6 +32,16 @@ keys = [
         lazy.layout.up()
     ),
 
+    # Move the current window between stacks
+    Key(
+        [mod, "shift"], "j",
+        lazy.layout.client_to_previous()
+    ),
+    Key(
+        [mod, "shift"], "k",
+        lazy.layout.client_to_next()
+    ),
+
     # Move windows up or down in current stack
     Key(
         [mod, "control"], "k",
@@ -72,6 +82,7 @@ keys = [
     Key([mod], "Tab", lazy.nextlayout()),
     Key([mod], "w", lazy.window.kill()),
 
+    # Commands for restarting, locking, shutting down
     Key([mod, "control"], "r", lazy.restart()),
     Key([mod, "control"], "q", lazy.shutdown()),
     Key([mod], "r", lazy.spawncmd()),
@@ -108,7 +119,8 @@ layout_defaults = dict(
 
 layouts = [
     layout.Max(**layout_defaults),
-    layout.Stack(num_stacks=2, **layout_defaults)
+    layout.Stack(num_stacks=2, **layout_defaults),
+    #layout.xmonad.MonadTall(**layout_defaults),
 ]
 
 widget_defaults = dict(
