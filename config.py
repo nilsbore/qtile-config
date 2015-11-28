@@ -20,6 +20,8 @@ class Commands(object):
     volume_down = 'amixer -q set Master,0 5%- unmute'
     # This command might not be correct, but it works
     volume_toggle = 'amixer -q -D pulse sset Master 1+ toggle'
+    sound_player = 'mplayer'
+    disaster_sound = ' ' + home + '/.config/qtile/sounds/nooo.mp3'
 
 keys = [
     # Switch between windows in current stack pane
@@ -95,6 +97,9 @@ keys = [
 
     # TODO: What does the PrtSc button map to?
     Key([mod], 's', lazy.spawn(Commands.screenshot)),
+
+    # Press in case of emergency
+    Key([mod, "control"], 'n', lazy.spawn(Commands.sound_player + Commands.disaster_sound)),
 ]
 
 groups = [Group(i) for i in "123456"]
