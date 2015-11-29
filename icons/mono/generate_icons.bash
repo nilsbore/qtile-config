@@ -1,7 +1,7 @@
 
 for f in *.svg; do
     s=${f##*/};
-    convert -background none -density 2000 -resize 48x48 $f ${s%.*}.png;
+    convert -background none -density 2000 -resize 50x50 -bordercolor none -border 5 $f ${s%.*}.png;
 done
 
 cp battery-missing-symbolic.png battery-missing.png
