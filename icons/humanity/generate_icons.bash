@@ -12,3 +12,6 @@ cp battery_plugged.png battery-low-charging.png
 cp battery_plugged.png battery-good-charging.png
 cp battery_plugged.png battery-full-charging.png
 cp battery_plugged.png battery-full-charged.png
+
+cp network_local.png network-online.png
+cp network-receive.png network-acquiring.png
