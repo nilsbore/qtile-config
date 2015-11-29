@@ -5,6 +5,7 @@ from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget
 from os.path import expanduser
+from network_icon import NetworkIcon
 
 mod = "mod4"
 home = expanduser("~")
@@ -144,6 +145,7 @@ screens = [
                 widget.WindowName(),
                 #widget.TextBox("default config", name="default"),
                 widget.Systray(),
+                NetworkIcon(theme_path=home+'/.config/qtile/icons'),
                 widget.BatteryIcon(theme_path=home+'/.config/qtile/icons', battery_name='BAT0'),
                 widget.Volume(theme_path=home+'/.config/qtile/icons'),
                 #widget.NetGraph(interface='auto'),
