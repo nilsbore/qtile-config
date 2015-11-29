@@ -14,6 +14,7 @@ home = expanduser("~")
 class Commands(object):
     browser = 'google-chrome'
     file_manager = 'nautilus --no-desktop'
+    dev_ide = 'QT_QPA_PLATFORMTHEME=""; qtcreator'
     lock_screen = 'gnome-screensaver-command -l'
     screenshot = 'gnome-screenshot'
     terminal = 'gnome-terminal'
@@ -80,6 +81,7 @@ keys = [
     Key([mod], "Return", lazy.spawn(Commands.terminal)),
     Key([mod], 'b', lazy.spawn(Commands.browser)),
     Key([mod], 'f', lazy.spawn(Commands.file_manager)),
+    Key([mod], 'q', lazy.spawn(Commands.dev_ide)),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.nextlayout()),
