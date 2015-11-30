@@ -3,9 +3,10 @@
 
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
-from libqtile import layout, bar, widget
+from libqtile import layout, bar, widget, hook
 from os.path import expanduser
 from network_icon import NetworkIcon
+import subprocess
 
 mod = "mod4"
 home = expanduser("~")
@@ -67,6 +68,12 @@ keys = [
     Key(
         [mod, "shift"], "space",
         lazy.layout.rotate()
+    ),
+
+    # Toggle floating for current window
+    Key(
+        [mod], "z",
+        lazy.window.toggle_floating()
     ),
 
     # Toggle between split and unsplit sides of stack.
@@ -148,7 +155,7 @@ screens = [
                 #widget.AGroupBox(),
                 widget.WindowName(),
                 #widget.TextBox("default config", name="default"),
-                widget.Mpris2(objname="org.mpris.MediaPlayer2.rhythmbox"),
+                #widget.Mpris2(objname="org.mpris.MediaPlayer2.rhythmbox"),
                 widget.Systray(),
                 widget.Spacer(width=12),
                 NetworkIcon(theme_path=home+'/.config/qtile/icons/mono'),
@@ -159,7 +166,20 @@ screens = [
             ],
             size=30,
             #icon_size=20,
-            background=['222222', '111111'],
+            background=['444444', '222222'],
+        ),
+    ),
+    Screen(
+        top=bar.Bar(
+            widgets=[
+                widget.GroupBox(),
+                widget.Prompt(),
+                widget.WindowName(),
+                widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
+            ],
+            size=30,
+            #icon_size=20,
+            background=['444444', '222222'],
         ),
     ),
 ]
@@ -182,3 +202,19 @@ cursor_warp = False
 floating_layout = layout.Floating(**layout_defaults)
 auto_fullscreen = True
 wmname = "qtile"
+
+# subscribe for change of screen setup, just restart if called
+@hook.subscribe.screen_change
+def restart_on_randr(qtile, ev):
+    # TODO only if numbers of screens changed
+    subprocess.call([
+        'xrandr',
+        '--output', 'DP1', '--auto', '--right-of', 'LVDS1',
+        '--output', 'LVDS1', '--primary'
+        ],
+        stderr = subprocess.PIPE,
+        stdout = subprocess.PIPE)
+    qtile.cmd_restart()
+
+#def main(qtile):
+#   pass
